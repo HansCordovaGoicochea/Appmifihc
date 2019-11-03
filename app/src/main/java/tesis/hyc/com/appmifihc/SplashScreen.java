@@ -19,7 +19,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         progressBar = findViewById(R.id.pgSplash);
         textView = findViewById(R.id.txtSplash);
@@ -27,11 +27,21 @@ public class SplashScreen extends AppCompatActivity {
         progressBar.setMax(100);
         progressBar.setScaleY(3f);
         progressAnimation();
+
     }
 
     private void progressAnimation() {
         ProgressSplashAnimation progressSplashAnimation = new ProgressSplashAnimation(this, progressBar, textView, 0f, 100f);
         progressSplashAnimation.setDuration(8000);
         progressBar.setAnimation(progressSplashAnimation);
+
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
     }
 }

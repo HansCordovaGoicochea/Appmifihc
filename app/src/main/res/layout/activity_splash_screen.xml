@@ -4,26 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mifinanciera"
     android:padding="16dp"
-    tools:context=".SplashScreen"
-    android:background="@drawable/mifinanciera">
+    tools:context=".SplashScreen">
 
     <TextView
         android:id="@+id/txtSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/pgSplash"
+        android:layout_centerHorizontal="true"
         android:text="0 %"
         android:textColor="@color/white"
-        android:textSize="25sp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/pgSplash" />
+        android:textSize="25sp" />
 
 
     <ProgressBar
         android:id="@+id/pgSplash"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp" />
 

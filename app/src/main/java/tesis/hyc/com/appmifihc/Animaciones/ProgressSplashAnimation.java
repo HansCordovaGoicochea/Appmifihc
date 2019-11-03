@@ -1,6 +1,7 @@
 package tesis.hyc.com.appmifihc.Animaciones;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -39,7 +40,12 @@ public class ProgressSplashAnimation extends Animation {
         textView.setText((int)value+" %");
 
         if(value == to){
-            context.startActivity(new Intent(context, ActividadPrincipal.class));
+            Intent intent = new Intent(context, ActividadPrincipal.class);
+            context.startActivity(intent);
+
+            //Remove activity
+            ((Activity) context).finish();
+
         }
     }
 }
