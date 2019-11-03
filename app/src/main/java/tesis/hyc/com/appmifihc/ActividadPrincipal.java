@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import tesis.hyc.com.appmifihc.Clases.Author;
+import tesis.hyc.com.appmifihc.Utils.CheckInternetAsyncTask;
 
 public class ActividadPrincipal extends AppCompatActivity {
 
@@ -13,7 +13,11 @@ public class ActividadPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_principal);
 
-        Author author = new Author("isbn123", 19, 55);
-        author.save();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new CheckInternetAsyncTask(this).execute();
     }
 }

@@ -26,5 +26,22 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+    //ORM SUGAR
     implementation 'com.github.satyan:sugar:1.5'
+
+    //animacion after efect json
+    implementation "com.airbnb.android:lottie:3.1.0"
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
+    //https://stackoverflow.com/questions/44614380/how-can-i-make-bcrypt-in-php-and-jbcrypt-in-java-compatible
+    //https://github.com/patrickfav/bcrypt
+    implementation files('libs/jbcrypt-0.3m.jar')
+
+
+    //gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 }

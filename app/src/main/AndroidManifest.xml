@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="tesis.hyc.com.appmifihc">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-sdk tools:overrideLibrary="pl.droidsonroids.gif"/>
+
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -28,7 +33,7 @@
             android:value="mifinanciera.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="3" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />

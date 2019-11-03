@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import tesis.hyc.com.appmifihc.ActividadPrincipal;
+import tesis.hyc.com.appmifihc.Utils.CheckInternetAsyncTask;
 
 public class ProgressSplashAnimation extends Animation {
 
@@ -36,16 +37,16 @@ public class ProgressSplashAnimation extends Animation {
         super.applyTransformation(interpolatedTime, t);
 
         float value = from + (to - from) * interpolatedTime;
-        progressBar.setProgress((int)value);
-        textView.setText((int)value+" %");
+        progressBar.setProgress((int) value);
+        textView.setText((int) value + " %");
 
-        if(value == to){
-            Intent intent = new Intent(context, ActividadPrincipal.class);
-            context.startActivity(intent);
-
-            //Remove activity
-            ((Activity) context).finish();
-
-        }
+//        if (value == to) {
+//            Intent intent = new Intent(context, ActividadPrincipal.class);
+//            context.startActivity(intent);
+//
+//            //Remove activity
+//            ((Activity) context).finish();
+//
+//        }
     }
 }
