@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/button_nointernet"
-            android:text="Ajustes"
+            android:text="@string/txtButtonNointernet"
             android:textColor="@color/colorPrimary"
             android:foreground="?android:attr/selectableItemBackground"
             />

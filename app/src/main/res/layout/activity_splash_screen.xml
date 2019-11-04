@@ -19,6 +19,7 @@
         android:textSize="25sp" />
 
 
+
     <ProgressBar
         android:id="@+id/pgSplash"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"

@@ -3,13 +3,17 @@ package tesis.hyc.com.appmifihc.Utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -24,9 +28,17 @@ import static tesis.hyc.com.appmifihc.Utils.Constantes.POPUP_NOT_INTERNET;
 public class CheckInternetAsyncTask extends AsyncTask<Void, Integer, Boolean> {
 
     private Context context;
+    private Activity activity;
+    AlertDialog alertDialog;
 
-    public CheckInternetAsyncTask(Context context) {
-        this.context = context;
+    public CheckInternetAsyncTask(Activity activity) {
+        this.context = activity.getApplicationContext();
+        this.activity = activity;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
     }
 
     @Override
@@ -75,33 +87,37 @@ public class CheckInternetAsyncTask extends AsyncTask<Void, Integer, Boolean> {
         if(!result){
             // do ur code
             //abrir el dialogo de no hay internet
-            Toast.makeText(context.getApplicationContext(), "No tiene internet", Toast.LENGTH_LONG).show();
+//            Toast.makeText(context, "No tiene internet", Toast.LENGTH_LONG).show();
             //calling this method to show our android custom alert dialog
-//            showCustomDialog();
+            showAlertDialogButtonClicked();
+
         }
 
     }
 
-    private void showCustomDialog() {
-        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
-        ViewGroup viewGroup = ((Activity)context).findViewById(android.R.id.content);
 
-        //then we will inflate the custom alert dialog xml that we created
-        View dialogView = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.modal_nointernet, viewGroup, false);
+    public void showAlertDialogButtonClicked() {
 
-
-        //Now we need an AlertDialog.Builder object
-        AlertDialog.Builder builder = new AlertDialog.Builder(context.getApplicationContext());
-
-        //setting the view of the builder to our custom view that we already inflated
-        builder.setView(dialogView);
-
-        //finally creating the alert dialog and displaying it
-        AlertDialog alertDialog = builder.create();
+        // create an alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setCancelable(false);
+        View modal_nointernet = activity.getLayoutInflater().inflate(R.layout.modal_nointernet, null);
+        builder.setView(modal_nointernet);
+        alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
+
+        Button ingresar = (Button) modal_nointernet.findViewById(R.id.buttonOk);
+        ingresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.recreate();
+            }
+        });
 
 
     }
+
 
 
 }
