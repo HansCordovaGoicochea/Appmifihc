@@ -4,13 +4,13 @@
     <item
         android:id="@+id/action_recents"
         android:enabled="true"
-        android:icon="@drawable/lgn_hom_ico_ubicanos_off"
+        android:icon="@drawable/maps"
         android:title="Agencias"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_favorites"
         android:enabled="true"
-        android:icon="@drawable/lgn_hom_ico_contactanos_off"
+        android:icon="@drawable/support"
         android:title="Contactanos"
         app:showAsAction="ifRoom" />
     <item
