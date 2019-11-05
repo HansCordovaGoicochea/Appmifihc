@@ -53,12 +53,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
+        bottomNavigationView.getMenu().getItem(0).setCheckable(false);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_recents:
+                        item.setCheckable(true);
                         Toast.makeText(LoginActivity.this, "Recents", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_favorites:
