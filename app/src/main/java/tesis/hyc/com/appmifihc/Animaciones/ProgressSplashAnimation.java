@@ -25,15 +25,16 @@ import static tesis.hyc.com.appmifihc.Utils.Constantes.POPUP_NOT_INTERNET;
 public class ProgressSplashAnimation extends Animation {
 
     private Context context;
+    private Activity activity;
     private ProgressBar progressBar;
     private TextView textView;
     private float from;
     private float to;
 
 
-    public ProgressSplashAnimation(Context context, ProgressBar progressBar, TextView textView, float from, float to) {
-
-        this.context = context;
+    public ProgressSplashAnimation(Activity activity, ProgressBar progressBar, TextView textView, float from, float to) {
+        this.activity = activity;
+        this.context = activity.getApplicationContext();
         this.progressBar = progressBar;
         this.textView = textView;
         this.from = from;
@@ -50,12 +51,13 @@ public class ProgressSplashAnimation extends Animation {
         textView.setText((int) value + " %");
 
         if (value == to && POPUP_NOT_INTERNET) {
-            Intent intent = new Intent(context, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            context.startActivity(intent);
+            Intent intent = new Intent(activity, LoginActivity.class);
+//            Toast.makeText(activity,"L>H on login",Toast.LENGTH_LONG).show();
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(intent);
 //            Toast.makeText(context, "ssssssssssss", Toast.LENGTH_LONG).show();
             //Remove activity
-            ((Activity) context).finish();
+            activity.finish();
 
         }
     }
