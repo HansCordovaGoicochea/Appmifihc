@@ -4,4 +4,5 @@
     <string name="OLVIDE_CLAVE">
         <u>Olvidé mi clave</u>.
     </string>
+    <string name="RECORDAR_USUARIO">Recordar usuario</string>
 </resources>

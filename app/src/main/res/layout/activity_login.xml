@@ -65,6 +65,27 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
             android:layout_marginRight="62dp"
+            android:layout_marginTop="3.7dp">
+
+            <customfonts.Checkbox_Poppins_Regular
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RECORDAR_USUARIO"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:theme="@style/WhiteCheck"
+                app:buttonTint="@color/colorPrimary"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginRight="62dp"
             android:layout_marginTop="12.7dp"
             android:background="@drawable/blue_border_rounded_cornwe">
 

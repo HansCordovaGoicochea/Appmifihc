@@ -139,21 +139,21 @@ public class LoginActivity extends AppCompatActivity {
                 // Initial
 
                 // Fill with results
-                for (int i = 0; i < permissions.length; i++) {
-                    perms.put(permissions[i], grantResults[i]);
-                }
-                // Check for ACCESS_FINE_LOCATION
-                if (perms.get(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    // All Permissions Granted
-//                    startActivity(new Intent(PermissionsActivity.this, SplashActivity.class));
-//                    finish();
-                } else {
-                    // Permission Denied
-                    Toast.makeText(this, "Algunos permisos son denegados.", Toast.LENGTH_SHORT)
-                            .show();
-                    isFirst = false;
-                    askPermissions(true);
-                }
+//                for (int i = 0; i < permissions.length; i++) {
+//                    perms.put(permissions[i], grantResults[i]);
+//                }
+//                // Check for ACCESS_FINE_LOCATION
+//                if (perms.get(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+//                    // All Permissions Granted
+////                    startActivity(new Intent(PermissionsActivity.this, SplashActivity.class));
+////                    finish();
+//                } else {
+//                    // Permission Denied
+//                    Toast.makeText(this, "Algunos permisos son denegados.", Toast.LENGTH_SHORT)
+//                            .show();
+//                    isFirst = false;
+//                    askPermissions(true);
+//                }
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
