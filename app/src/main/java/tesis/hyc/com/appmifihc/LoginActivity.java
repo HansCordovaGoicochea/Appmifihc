@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,6 +41,11 @@ public class LoginActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             askPermissions(true);
         }
+
+        TextView tv = (TextView) findViewById(R.id.pass);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/Poppins-Regular.ttf");
+        tv.setTypeface(face);
     }
 
     @Override

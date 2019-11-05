@@ -136,14 +136,12 @@
         <customfonts.MyTextView_Poppins_Medium
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10.5sp"
+            android:textSize="12.5sp"
             android:textColor="#002C56"
             android:layout_marginTop="12dp"
             android:layout_gravity="center"
-            android:text="Olvidé mi clave"
+            android:text="@string/OLVIDE_CLAVE"
             />
-
-
 
     </LinearLayout>
 
