@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class LoginActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
@@ -46,6 +49,29 @@ public class LoginActivity extends AppCompatActivity {
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/Poppins-Regular.ttf");
         tv.setTypeface(face);
+
+
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.getMenu().getItem(0).setCheckable(false);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_recents:
+                        item.setCheckable(true);
+                        Toast.makeText(LoginActivity.this, "Recents", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_favorites:
+                        Toast.makeText(LoginActivity.this, "Favorites", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_nearby:
+                        Toast.makeText(LoginActivity.this, "Nearby", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
