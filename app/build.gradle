@@ -45,10 +45,13 @@ dependencies {
     //https://github.com/patrickfav/bcrypt
     implementation files('libs/jbcrypt-0.3m.jar')
 
-
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
 
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
 }

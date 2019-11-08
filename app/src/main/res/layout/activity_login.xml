@@ -152,6 +152,7 @@
             android:text="Ingresar"
             android:backgroundTint="#002C56"
             android:background="@drawable/blue_fill__rounded_color"
+            android:id="@+id/btnIngresar"
             />
 
         <customfonts.MyTextView_Poppins_Medium
