@@ -14,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +46,25 @@ public class SplashScreen extends AppCompatActivity {
         progressBar.setMax(100);
         progressBar.setScaleY(3f);
         progressAnimation();
+
+
+
+        // Accessing the layout components to be displayed.}
+        ImageView ivLoading= (ImageView) findViewById(R.id.rotate_image);
+
+        RotateAnimation rotateAnimation = new RotateAnimation(
+                0,//float: Rotation offset to apply at the start of the animation.
+                360,//float: Rotation offset to apply at the end of the animation.
+                Animation.RELATIVE_TO_SELF,//int: Specifies how pivotXValue should be interpreted
+                0.5f,//float: The X coordinate of the point about which the object is being rotated
+                Animation.RELATIVE_TO_SELF,//int: Specifies how pivotYValue should be interpreted
+                0.5f//float: The Y coordinate of the point about which the object is being rotated
+        );
+
+        rotateAnimation.setDuration(1000);//How long this animation should last.
+        rotateAnimation.setRepeatCount(Animation.INFINITE);//Sets how many times the animation should be repeated.
+        rotateAnimation.setInterpolator(new LinearInterpolator());//Sets the acceleration curve for this animation.
+        ivLoading.startAnimation(rotateAnimation);
 
 
     }
