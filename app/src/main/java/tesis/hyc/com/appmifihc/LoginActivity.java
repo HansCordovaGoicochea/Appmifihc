@@ -11,7 +11,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +28,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import tesis.hyc.com.appmifihc.Clases.Customer;
+import tesis.hyc.com.appmifihc.io.MiApiAdapter;
+import tesis.hyc.com.appmifihc.io.response.CustomerResponse;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import static tesis.hyc.com.appmifihc.Utils.Constantes.API_KEY;
 
 public class LoginActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
@@ -34,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE_CONTACTS = 3;
     private static boolean isRationale = true;
     private static boolean isFirst = true;
+    EditText username;
+    EditText pass_user;
+    TextView ingresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +58,22 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //permisos
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            askPermissions(true);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            askPermissions(true);
+//        }
 
-        TextView tv = (TextView) findViewById(R.id.pass);
+        username = findViewById(R.id.username_input);
+        pass_user = findViewById(R.id.pass);
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/Poppins-Regular.ttf");
-        tv.setTypeface(face);
-
-
+        pass_user.setTypeface(face);
+        ingresar = findViewById(R.id.btnIngresar);
+        ingresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                obtenerCliente(username.getText().toString());
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(0).setCheckable(false);
@@ -72,6 +95,56 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
+    }
+
+    private void login(ArrayList<Customer> customers) {
+        String pass = String.valueOf(pass_user.getText());
+//        String hash = "$2y$10$cmhjBxhi6RwY14IvTxKHHOsiuUh6vjABRByN7P0ed9f.duD.k73QG".replaceFirst("2y", "2a");
+
+        for (Customer member : customers){
+            //Ver esta referecia para poder comparar las claves //libs/bcrypt
+            //https://stackoverflow.com/questions/44614380/how-can-i-make-bcrypt-in-php-and-jbcrypt-in-java-compatible
+            //https://github.com/patrickfav/bcrypt
+            String pass_hash = member.passwd.replaceFirst("2y", "2a");
+            boolean isSuccessful = BCrypt.checkpw(pass, pass_hash);
+            if (isSuccessful){
+                Log.e("asdas", "Login correcto");
+                Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
+            }else{
+                Log.e("asdas", "Login incorrecto");
+                Toast.makeText(LoginActivity.this, "Login incorrecto", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    private void obtenerCliente(String username) {
+        Call<CustomerResponse> call = MiApiAdapter.getApiService().getCustomerDetails("full", username, "JSON", API_KEY, 1);
+        call.enqueue(new ResponsablesCallback());
+    }
+
+    class ResponsablesCallback implements Callback<CustomerResponse> {
+
+        @Override
+        public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+//            Log.e("RESPONSE", response.toString());
+            if(response.isSuccessful()){
+                CustomerResponse customerResponse = response.body();
+                login(customerResponse.getCustomers());
+            }else{
+
+                Toast.makeText(LoginActivity.this, "Error en el formato de respuesta", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<CustomerResponse> call, Throwable t) {
+            Log.e("Error-ache", t.getLocalizedMessage());
+            Toast.makeText(LoginActivity.this, "Error: "+ t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
