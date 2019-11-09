@@ -2,6 +2,7 @@ package tesis.hyc.com.appmifihc;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -52,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText pass_user;
     TextView ingresar;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,12 @@ public class LoginActivity extends AppCompatActivity {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            askPermissions(true);
 //        }
+
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.show();
+//        progressDialog.setContentView(R.layout.custom_progressdialog);
+        //se ppdrá cerrar simplemente pulsando back
+        progressDialog.setCancelable(true);
 
         username = findViewById(R.id.username_input);
         pass_user = findViewById(R.id.pass);
@@ -95,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
 
 
