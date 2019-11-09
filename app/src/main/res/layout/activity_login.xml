@@ -35,7 +35,8 @@
                 android:layout_toRightOf="@+id/username_icon"
                 android:hint="Nro Documento"
                 android:textSize="14sp"
-               android:paddingLeft="17dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:maxLines="1"
@@ -186,5 +187,16 @@
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color" />
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:indeterminate="true"-->
+<!--        android:indeterminateDrawable="@drawable/custom_progress_bar"/>-->
+
+
 
 </RelativeLayout>

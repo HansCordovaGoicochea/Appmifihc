@@ -1,8 +1,9 @@
 package tesis.hyc.com.appmifihc;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,9 +14,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,18 +32,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import tesis.hyc.com.appmifihc.Clases.Customer;
-import tesis.hyc.com.appmifihc.io.MiApiAdapter;
-import tesis.hyc.com.appmifihc.io.response.CustomerResponse;
 
+import tesis.hyc.com.appmifihc.Clases.Customer;
+import tesis.hyc.com.appmifihc.Clases.VolleyPeticiones;
+import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
-import static tesis.hyc.com.appmifihc.Utils.Constantes.API_KEY;
 
 public class LoginActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
@@ -53,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText pass_user;
     TextView ingresar;
 
-    ProgressDialog progressDialog;
+
+    Dialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 //            askPermissions(true);
 //        }
 
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.show();
-//        progressDialog.setContentView(R.layout.custom_progressdialog);
-        //se ppdrá cerrar simplemente pulsando back
-        progressDialog.setCancelable(true);
+        dialogProgress();
 
         username = findViewById(R.id.username_input);
         pass_user = findViewById(R.id.pass);
@@ -80,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setProgressShow();
                 obtenerCliente(username.getText().toString());
             }
         });
@@ -105,57 +111,139 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-
+    }
+    public void dialogProgress(){
+        pd = new Dialog(this, android.R.style.Theme_Black);
+        View view = LayoutInflater.from(this).inflate(R.layout.remove_border, null);
+        pd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        pd.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        pd.setContentView(view);
+        pd.setCancelable(false);
     }
 
-    private void login(ArrayList<Customer> customers) {
+    public void setProgressShow(){
+        pd.show();
+    }
+    public void setProgressHide(){
+        pd.hide();
+    }
+
+    private void login(JSONObject jsonChildNode) {
         String pass = String.valueOf(pass_user.getText());
 //        String hash = "$2y$10$cmhjBxhi6RwY14IvTxKHHOsiuUh6vjABRByN7P0ed9f.duD.k73QG".replaceFirst("2y", "2a");
 
-        for (Customer member : customers){
-            //Ver esta referecia para poder comparar las claves //libs/bcrypt
-            //https://stackoverflow.com/questions/44614380/how-can-i-make-bcrypt-in-php-and-jbcrypt-in-java-compatible
-            //https://github.com/patrickfav/bcrypt
-            String pass_hash = member.passwd.replaceFirst("2y", "2a");
-            boolean isSuccessful = BCrypt.checkpw(pass, pass_hash);
-            if (isSuccessful){
-                Log.e("asdas", "Login correcto");
-                Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
-            }else{
-                Log.e("asdas", "Login incorrecto");
-                Toast.makeText(LoginActivity.this, "Login incorrecto", Toast.LENGTH_SHORT).show();
+        String passwd = jsonChildNode.optString("passwd");
+
+        //Ver esta referecia para poder comparar las claves //libs/bcrypt
+        //https://stackoverflow.com/questions/44614380/how-can-i-make-bcrypt-in-php-and-jbcrypt-in-java-compatible
+        //https://github.com/patrickfav/bcrypt
+        String pass_hash = passwd.replaceFirst("2y", "2a");
+        boolean isSuccessful = BCrypt.checkpw(pass, pass_hash);
+        if (isSuccessful){
+            Log.e("asdas", "Login correcto");
+            Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
+
+            Integer id_customer = jsonChildNode.optInt("id");
+            String num_document = jsonChildNode.optString("num_document");
+            String firstname = jsonChildNode.optString("firstname");
+            String telefono_celular = jsonChildNode.optString("telefono_celular");
+            String direccion = jsonChildNode.optString("direccion");
+            String email = jsonChildNode.optString("email");
+            String fecha_nacimiento = jsonChildNode.optString("birthday");
+
+
+            Customer customer = new Customer(id_customer, num_document, firstname, email, telefono_celular, direccion, fecha_nacimiento);
+            customer.save();
+        }else{
+            Log.e("asdas", "Login incorrecto");
+            Toast.makeText(LoginActivity.this, "Login incorrecto", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String _username = username.getText().toString();
+        String _pass_user = pass_user.getText().toString();
+
+        if (_username.isEmpty() || _username.length() < 3) {
+            username.setError("Al menos 5 caracteres");
+            valid = false;
+        } else {
+            username.setError(null);
+        }
+
+        if (_pass_user.isEmpty() || _pass_user.length() < 6) {
+            pass_user.setError("Al menos 6 caracteres");
+            valid = false;
+        } else {
+            pass_user.setError(null);
+        }
+
+
+        return valid;
+    }
+
+    public void onSignupFailed() {
+        Toast.makeText(getApplicationContext(), "Llene los datos correctamente", Toast.LENGTH_LONG).show();
+        setProgressHide();
+    }
+
+    //consultar al cliente
+    private void obtenerCliente(String numero_doc) {
+
+        if (!validate()) {
+            onSignupFailed();
+            return;
+        }
+
+        String url = VolleyPeticiones.getCustomerApi(numero_doc);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+
+                            JSONArray jsonMainNode = response.getJSONArray("customers");
+
+                            JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
+
+                            login(jsonChildNode);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        setProgressHide();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("sdsssssss", error.toString());
+                Toast.makeText(LoginActivity.this,"El servidor ha tardado demasiado tiempo en responder",Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+                setProgressHide();
             }
-        }
+        });
 
+
+          /*Se definen las políticas para la petición realizada. Recibe como argumento una instancia de la clase
+        DefaultRetryPolicy, que recibe como parámetros de entrada el tiempo inicial de espera para la respuesta,
+        el número máximo de intentos, y el multiplicador de retardo de envío por defecto.*/
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
+        /*Se declara e inicializa una variable de tipo RequestQueue, encargada de crear
+        una nueva petición en la cola del servicio web.*/
+        MySingleton.getInstance(LoginActivity.this).addToRequestQueue(request);
     }
 
-    private void obtenerCliente(String username) {
-        Call<CustomerResponse> call = MiApiAdapter.getApiService().getCustomerDetails("full", username, "JSON", API_KEY, 1);
-        call.enqueue(new ResponsablesCallback());
-    }
 
-    class ResponsablesCallback implements Callback<CustomerResponse> {
-
-        @Override
-        public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
-//            Log.e("RESPONSE", response.toString());
-            if(response.isSuccessful()){
-                CustomerResponse customerResponse = response.body();
-                login(customerResponse.getCustomers());
-            }else{
-
-                Toast.makeText(LoginActivity.this, "Error en el formato de respuesta", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onFailure(Call<CustomerResponse> call, Throwable t) {
-            Log.e("Error-ache", t.getLocalizedMessage());
-            Toast.makeText(LoginActivity.this, "Error: "+ t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void onBackPressed() {

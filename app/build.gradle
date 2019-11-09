@@ -30,16 +30,19 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
 
+    // Volley library
+    implementation 'com.android.volley:volley:1.1.1'
+
+    // Glide library
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
     //ORM SUGAR
     implementation 'com.github.satyan:sugar:1.5'
 
     //animacion after efect json
     implementation "com.airbnb.android:lottie:3.1.0"
 
-    //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
     //https://stackoverflow.com/questions/44614380/how-can-i-make-bcrypt-in-php-and-jbcrypt-in-java-compatible
     //https://github.com/patrickfav/bcrypt
@@ -47,11 +50,10 @@ dependencies {
 
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
+    //password hide show
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
 
-    //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
 
 }

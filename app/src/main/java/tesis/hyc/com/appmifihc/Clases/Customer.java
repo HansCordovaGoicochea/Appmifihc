@@ -1,23 +1,26 @@
 package tesis.hyc.com.appmifihc.Clases;
 
-import java.util.Date;
+import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
-public class Customer {
+public class Customer extends SugarRecord {
 
-    private String idcustomer;
-    private String num_document;
-    private String nombre_completo;
-    private String email;
-    private String celular;
-    private String direccion;
-    private Date fecha_nacimiento;
 
+    public Integer idcustomer;
+    public String num_document;
+    public String nombre_completo;
+    public String email;
+    public String celular;
+    public String direccion;
+    public String fecha_nacimiento;
+
+    @Ignore
     public String passwd;
 
     public Customer() {
     }
 
-    public Customer(String idcustomer, String num_document, String nombre_completo, String email, String celular, String direccion, Date fecha_nacimiento, String passwd) {
+    public Customer(Integer idcustomer, String num_document, String nombre_completo, String email, String celular, String direccion, String fecha_nacimiento) {
         this.idcustomer = idcustomer;
         this.num_document = num_document;
         this.nombre_completo = nombre_completo;
@@ -25,14 +28,13 @@ public class Customer {
         this.celular = celular;
         this.direccion = direccion;
         this.fecha_nacimiento = fecha_nacimiento;
-        this.passwd = passwd;
     }
 
-    public String getIdcustomer() {
+    public Integer getIdcustomer() {
         return idcustomer;
     }
 
-    public void setIdcustomer(String idcustomer) {
+    public void setIdcustomer(Integer idcustomer) {
         this.idcustomer = idcustomer;
     }
 
@@ -76,19 +78,11 @@ public class Customer {
         this.direccion = direccion;
     }
 
-    public Date getFecha_nacimiento() {
+    public String getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
+    public void setFecha_nacimiento(String fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
     }
 }
