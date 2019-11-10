@@ -60,4 +60,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.drawerlayout:drawerlayout:1.0.0"
 
+    implementation "com.synnapps:carouselview:0.1.5"
+
 }

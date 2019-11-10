@@ -4,26 +4,29 @@
     <item
         android:id="@+id/navigationMenu"
         android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:iconTint="@color/white"
         android:title="Menu" />
 
-    <item
-        android:id="@+id/navigationMyCourses"
-        android:icon="@drawable/email"
-        android:title="Courses" />
+<!--    <item-->
+<!--        android:id="@+id/navigationMyCourses"-->
+<!--        android:icon="@drawable/email"-->
+<!--        android:title="Courses" />-->
 
     <item
         android:id="@+id/navigationHome"
-        android:icon="@drawable/email"
-        android:title="Home" />
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/white"
+        android:title="Inicio" />
 
-    <item
-        android:id="@+id/navigationSearch"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search" />
+<!--    <item-->
+<!--        android:id="@+id/navigationSearch"-->
+<!--        android:icon="@android:drawable/ic_menu_search"-->
+<!--        android:title="Search" />-->
 
     <item
         android:id="@+id/navigationMyProfile"
-        android:icon="@drawable/email"
-        android:title="User" />
+        android:icon="@drawable/ic_user"
+        android:iconTint="@color/white"
+        android:title="Perfil" />
 
 </menu>

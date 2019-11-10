@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 import tesis.hyc.com.appmifihc.Clases.Customer;
-import tesis.hyc.com.appmifihc.Clases.VolleyPeticiones;
+import tesis.hyc.com.appmifihc.SingletonVolley.VolleyPeticiones;
 import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
 
 
@@ -161,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             Log.e("asdas", "Login incorrecto");
             Toast.makeText(LoginActivity.this, "Login incorrecto", Toast.LENGTH_SHORT).show();
+            setProgressHide();
         }
 
 
@@ -220,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        setProgressHide();
+
                     }
                 }, new Response.ErrorListener() {
             @Override

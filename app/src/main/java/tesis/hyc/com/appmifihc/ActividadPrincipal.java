@@ -8,6 +8,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,26 +19,39 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import tesis.hyc.com.appmifihc.Fragmentos.FragmentoInicio;
 import tesis.hyc.com.appmifihc.Utils.CheckInternetAsyncTask;
 
 public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     boolean doubleBackToExitPressedOnce = false;
     private BottomNavigationView bottomNavigationView;
+    public FragmentManager fragmentManager;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            fragmentManager = getSupportFragmentManager();
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigationMyProfile:
                     return true;
-                case R.id.navigationMyCourses:
-                    return true;
                 case R.id.navigationHome:
-                    return true;
-                case  R.id.navigationSearch:
+                    Bundle args = new Bundle();
+                    args.putString(FragmentoInicio.ARG_SECTION_TITLE, "Inicio");
+                    fragment = FragmentoInicio.newInstance("", "");
+                    fragment.setArguments(args);
+
+                    FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+
+                    // Replace whatever is in the fragment_container view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    fragmentTransaction2.replace(R.id.contenedor_principal, fragment, "FragmentoInicio");
+                    fragmentTransaction2.addToBackStack(null);
+                    fragmentTransaction2.commit();
+                    setTitle("Inicio"); // Setear título actual
+//                Toast.makeText(getApplicationContext(), "Carrrioto", Toast.LENGTH_SHORT).show();
                     return true;
                 case  R.id.navigationMenu:
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
