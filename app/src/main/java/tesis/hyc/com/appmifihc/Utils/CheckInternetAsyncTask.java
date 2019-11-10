@@ -1,20 +1,15 @@
 package tesis.hyc.com.appmifihc.Utils;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -28,10 +23,10 @@ import static tesis.hyc.com.appmifihc.Utils.Constantes.POPUP_NOT_INTERNET;
 public class CheckInternetAsyncTask extends AsyncTask<Void, Integer, Boolean> {
 
     private Context context;
-    private Activity activity;
+    private AppCompatActivity activity;
     AlertDialog alertDialog;
 
-    public CheckInternetAsyncTask(Activity activity) {
+    public CheckInternetAsyncTask(AppCompatActivity activity) {
         this.context = activity.getApplicationContext();
         this.activity = activity;
     }

@@ -61,7 +61,7 @@
             android:background="@drawable/button_nointernet"
             android:text="@string/txtButtonNointernet"
             android:textColor="@color/colorPrimary"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
             />
 
     </LinearLayout>

@@ -14,7 +14,7 @@
         android:layout_height="154dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/mftiny1" />
+        app:srcCompat="@drawable/mftiny1" />
 
     <TextView
         android:id="@+id/txtSplash"

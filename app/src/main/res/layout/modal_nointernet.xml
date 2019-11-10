@@ -62,7 +62,7 @@
             android:text="Reintentar"
             android:textColor="@color/colorPrimary"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
             />
 
     </LinearLayout>

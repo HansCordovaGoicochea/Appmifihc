@@ -1,8 +1,6 @@
 package tesis.hyc.com.appmifihc;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,19 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import tesis.hyc.com.appmifihc.Clases.Customer;
-import tesis.hyc.com.appmifihc.Clases.VolleyPeticiones;
-import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -48,6 +37,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import tesis.hyc.com.appmifihc.Clases.Customer;
+import tesis.hyc.com.appmifihc.Clases.VolleyPeticiones;
+import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -71,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //permisos
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            askPermissions(true);
+//            askPermissions(true);<
 //        }
 
         dialogProgress();

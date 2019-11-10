@@ -51,7 +51,7 @@
             <ImageView
                 android:id="@+id/username_icon"
                 android:tint="#19294a"
-                android:src="@drawable/round_person_black_24dp"
+                app:srcCompat="@drawable/round_person_black_24dp"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginLeft="17dp"
@@ -128,7 +128,7 @@
             <ImageView
                 android:tint="#19294a"
                 android:id="@+id/icon"
-                android:src="@drawable/password"
+                app:srcCompat="@drawable/password"
                 android:layout_width="14.7dp"
                 android:layout_height="14.3dp"
                 android:layout_marginLeft="17dp"
