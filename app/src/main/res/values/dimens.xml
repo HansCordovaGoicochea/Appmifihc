@@ -6,8 +6,8 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="normalPadding">10dp</dimen>
-    <dimen name="headerTextSize">20sp</dimen>
-    <dimen name="headerMoreTextSize">18sp</dimen>
+    <dimen name="headerTextSize">18sp</dimen>
+    <dimen name="headerMoreTextSize">16sp</dimen>
     <dimen name="card_margin">5dp</dimen>
     <dimen name="frutorial_title">15sp</dimen>
 

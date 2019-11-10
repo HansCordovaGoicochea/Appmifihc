@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import tesis.hyc.com.appmifihc.Fragmentos.FragmentoInicio;
+import tesis.hyc.com.appmifihc.Prefs.SessionPrefs;
 import tesis.hyc.com.appmifihc.Utils.CheckInternetAsyncTask;
 
 public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -68,6 +70,13 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_principal);
 
+        // Redirección al Login
+        if (!SessionPrefs.get(this).isLoggedIn()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -101,6 +110,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         } else {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
+                SessionPrefs.get(this).logOut();
                 finish();
                 return;
             }
@@ -119,6 +129,12 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         }
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SessionPrefs.get(this).logOut();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

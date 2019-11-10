@@ -12,6 +12,7 @@ public class Customer extends SugarRecord {
     public String email;
     public String celular;
     public String direccion;
+
     public String fecha_nacimiento;
 
     @Ignore

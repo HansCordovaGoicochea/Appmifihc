@@ -37,7 +37,7 @@
                     android:layout_marginBottom="20dp"
                     app:cardCornerRadius="16dp"
                     app:cardPreventCornerOverlap="false"
-                    app:cardBackgroundColor="@color/designMainColor"
+                    app:cardBackgroundColor="@color/colorAccent"
                     android:minHeight="200dp"
                     android:layout_alignParentTop="true">
 
@@ -58,7 +58,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Continue to \nWebdeveloper Course"
-                                android:textColor="@color/whiteBodyColor"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:textSize="20sp"/>
 
@@ -67,7 +67,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="60% Complete"
-                                android:textColor="@color/whiteBodyColor"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:textSize="13sp"/>
 

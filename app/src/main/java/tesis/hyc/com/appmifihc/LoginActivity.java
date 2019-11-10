@@ -2,8 +2,10 @@ package tesis.hyc.com.appmifihc;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 import tesis.hyc.com.appmifihc.Clases.Customer;
+import tesis.hyc.com.appmifihc.Prefs.SessionPrefs;
 import tesis.hyc.com.appmifihc.SingletonVolley.VolleyPeticiones;
 import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
 
@@ -58,9 +62,12 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText pass_user;
     TextView ingresar;
-
+    CheckBox cbRecordar;
 
     Dialog pd;
+
+    Customer customer;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +79,13 @@ public class LoginActivity extends AppCompatActivity {
 //            askPermissions(true);<
 //        }
 
+        //Si se puede guardar el usuariox
+        prefs = getSharedPreferences("PrefUserSave", Context.MODE_PRIVATE);
+
         dialogProgress();
 
+        cbRecordar = findViewById(R.id.cbRecordar);
+//        dualcamera1.isChecked()/
         username = findViewById(R.id.username_input);
         pass_user = findViewById(R.id.pass);
         Typeface face = Typeface.createFromAsset(getAssets(),
@@ -108,6 +120,15 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+        boolean recordar = prefs.getBoolean("recordar_usuario", false);
+        String usuarioshared = prefs.getString("usuario", "");
+        // primera peticion al servidor
+        if (recordar) {
+            username.setText(usuarioshared);
+            cbRecordar.setChecked(recordar);
+        }
 
     }
     public void dialogProgress(){
@@ -150,8 +171,22 @@ public class LoginActivity extends AppCompatActivity {
             String fecha_nacimiento = jsonChildNode.optString("birthday");
 
 
-            Customer customer = new Customer(id_customer, num_document, firstname, email, telefono_celular, direccion, fecha_nacimiento);
+//            customer.delete();
+            Customer.deleteAll(Customer.class);
+            customer = new Customer(id_customer, num_document, firstname, email, telefono_celular, direccion, fecha_nacimiento);
             customer.save();
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("usuario", "");
+            editor.putBoolean("recordar_usuario", false);
+            if(cbRecordar.isChecked()){
+                editor.putString("usuario", num_document);
+                editor.putBoolean("recordar_usuario", true);
+            }
+            editor.apply();
+
+            // Guardar afiliado en preferencias
+            SessionPrefs.get(LoginActivity.this).saveCustomer(customer);
 
             Intent intent = new Intent(LoginActivity.this, ActividadPrincipal.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

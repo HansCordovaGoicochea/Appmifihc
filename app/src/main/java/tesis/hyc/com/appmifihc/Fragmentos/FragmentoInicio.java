@@ -1,8 +1,10 @@
 package tesis.hyc.com.appmifihc.Fragmentos;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -17,6 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
@@ -26,9 +37,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import tesis.hyc.com.appmifihc.Clases.PromocionesBanner;
 import tesis.hyc.com.appmifihc.R;
 import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
 import tesis.hyc.com.appmifihc.SingletonVolley.VolleyPeticiones;
+
+import static tesis.hyc.com.appmifihc.Utils.Constantes.API_KEY;
+import static tesis.hyc.com.appmifihc.Utils.Constantes.BASE_URL;
 
 public class FragmentoInicio extends Fragment {
     public static final String ARG_SECTION_TITLE = "";
@@ -41,11 +56,13 @@ public class FragmentoInicio extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ArrayList<String> promociones = new ArrayList<String>();
+    ArrayList<String> promociones = new ArrayList<>();
+
+
 
 
     CarouselView carouselView;
-    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
+    ProgressBar progressBar;
 
     public FragmentoInicio() {
         // Required empty public constructor
@@ -70,34 +87,58 @@ public class FragmentoInicio extends Fragment {
         }
 
         peticionServicioOfertas();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_inicio, container, false);
-        carouselView = (CarouselView) view.findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(imageListener);
+        carouselView = view.findViewById(R.id.carouselView);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress);
+
 
         return view;
     }
 
     ImageListener imageListener = new ImageListener() {
         public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
-//            Glide.with(FragmentoInicio.this)
-//                    .load(promociones.get(position))
-//                    .into(imageView)
-//            ;
+//            imageView.setImageResource(promociones.get(position));
+//            Log.e("asdsadasd", promociones.get(position));
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE) // because file name is always same
+//                    .placeholder(R.drawable.empty_banner)
+                    .fitCenter()
+                    ;
+
+            Glide.with(FragmentoInicio.this)
+                    .load(promociones.get(position))
+                    .apply(requestOptions)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+
+                    .into(imageView);
         }
     };
 
     public void peticionServicioOfertas()
     {
 
-        String uri = VolleyPeticiones.getPromocionesSlider();
+        final String uri = VolleyPeticiones.getPromocionesSlider();
         /*Se declara e inicializa un objeto de tipo JsonObjectRequest, que permite
         recuperar un JSONObject a partir de la URL que recibe. El constructor de la clase JsonObjectRequest
         recibe como argumentos de entrada el método para que el cliente realice operaciones sobre el servidor web, la uri
@@ -123,6 +164,8 @@ public class FragmentoInicio extends Fragment {
 
                                 String url_imagen = VolleyPeticiones.getUrlImagePromocion(id_oferta);
                                 promociones.add(url_imagen);
+                                carouselView.setImageListener(imageListener);
+                                carouselView.setPageCount(promociones.size());
 
 //                                mContents = new ViewPagerModel();
 //                                mContents.setImages(id_oferta);

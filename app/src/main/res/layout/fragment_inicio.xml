@@ -8,45 +8,61 @@
     style="@style/parent.contentLayout">
 <!--    tools:showIn="@layout/app_bar_main"-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:padding="@dimen/normalPadding"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/textViewUser"
-            style="@style/viewParent.headerText"
-            android:maxLines="1"
-            android:text="Hello Kapil!"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+<!--        <TextView-->
+<!--            android:id="@+id/textViewUser"-->
+<!--            style="@style/viewParent.headerText"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:maxLines="1"-->
+<!--            android:ellipsize="end"-->
+<!--            android:text="HOLA! CORDOVA GOICOCHEA HANS NORBERT MICHAEL"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_centerVertical="true"/>-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="0dp">
 
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carouselView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:fillColor="#ffffffff"
+            app:fillColor="@color/colorPrimary"
             app:pageColor="#00000000"
             app:radius="5dp"
-            app:slideInterval="3000"
-            app:strokeColor="#ff777777"
+            app:slideInterval="5000"
+            app:strokeColor="@color/colorPrimary"
+            android:background="@drawable/mifinanciera"
             app:strokeWidth="1dp" />
+
+        <ProgressBar
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="0dp">
 
         <TextView
             android:layout_alignParentTop="true"
@@ -57,6 +73,10 @@
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:paddingTop="0dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!--remove the below layout with recycler view, use card poplar courses as model for design-->
