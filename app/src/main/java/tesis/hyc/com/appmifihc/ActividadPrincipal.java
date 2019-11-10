@@ -18,6 +18,5 @@ public class ActividadPrincipal extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new CheckInternetAsyncTask(this).execute();
     }
 }

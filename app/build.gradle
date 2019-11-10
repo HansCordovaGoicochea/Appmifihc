@@ -30,6 +30,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
 
+
     // Volley library
     implementation 'com.android.volley:volley:1.1.1'
 
@@ -54,6 +55,9 @@ dependencies {
     //password hide show
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
 
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 
 }

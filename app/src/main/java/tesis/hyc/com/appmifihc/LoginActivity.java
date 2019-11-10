@@ -154,6 +154,12 @@ public class LoginActivity extends AppCompatActivity {
 
             Customer customer = new Customer(id_customer, num_document, firstname, email, telefono_celular, direccion, fecha_nacimiento);
             customer.save();
+
+            Intent intent = new Intent(LoginActivity.this, ActividadPrincipal.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            //Remove activity
+            finish();
         }else{
             Log.e("asdas", "Login incorrecto");
             Toast.makeText(LoginActivity.this, "Login incorrecto", Toast.LENGTH_SHORT).show();
@@ -168,8 +174,8 @@ public class LoginActivity extends AppCompatActivity {
         String _username = username.getText().toString();
         String _pass_user = pass_user.getText().toString();
 
-        if (_username.isEmpty() || _username.length() < 3) {
-            username.setError("Al menos 5 caracteres");
+        if (_username.isEmpty() || _username.length() < 8) {
+            username.setError("Al menos 8 caracteres");
             valid = false;
         } else {
             username.setError(null);
@@ -221,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("sdsssssss", error.toString());
+
                 Toast.makeText(LoginActivity.this,"El servidor ha tardado demasiado tiempo en responder",Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
                 setProgressHide();
