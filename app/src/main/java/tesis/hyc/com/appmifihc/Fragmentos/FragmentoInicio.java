@@ -107,10 +107,10 @@ public class FragmentoInicio extends Fragment {
         public void setImageForPosition(int position, ImageView imageView) {
 //            imageView.setImageResource(promociones.get(position));
 //            Log.e("asdsadasd", promociones.get(position));
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE) // because file name is always same
 //                    .placeholder(R.drawable.empty_banner)
-                    .fitCenter()
                     ;
 
             Glide.with(FragmentoInicio.this)
