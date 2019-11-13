@@ -26,13 +26,29 @@
     </style>
 
     <style name="parent.contentLayout">
-        <item name="background">@color/grey700</item>
+        <item name="background">@color/green50</item>
     </style>
 
     <style name="viewParent.headerText">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">@dimen/headerTextSize</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="viewParent.prestamosText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/headerTextSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="reportContentText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_below">@id/dateTextView</item>
     </style>
 
 </resources>

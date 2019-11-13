@@ -5,27 +5,36 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ActividadPrincipal"
     android:orientation="vertical"
-    style="@style/parent.contentLayout">
+    style="@style/parent.contentLayout"
+    android:background="@color/colorPrimaryDark"
+    >
 <!--    tools:showIn="@layout/app_bar_main"-->
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:padding="@dimen/normalPadding"-->
-<!--        android:background="@color/colorPrimary"-->
-<!--        android:layout_height="wrap_content">-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/normalPadding"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="wrap_content">
 
-<!--        <TextView-->
-<!--            android:id="@+id/textViewUser"-->
-<!--            style="@style/viewParent.headerText"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:maxLines="1"-->
-<!--            android:ellipsize="end"-->
-<!--            android:text="HOLA! CORDOVA GOICOCHEA HANS NORBERT MICHAEL"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_alignParentLeft="true"-->
-<!--            android:layout_centerVertical="true"/>-->
+        <TextView
+            android:id="@+id/textViewUser"
+            style="@style/viewParent.headerText"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="MI FINANCIERA"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
 
-<!--    </RelativeLayout>-->
+<!--        <ImageView-->
+<!--            android:id="@+id/profileCircleImageView"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:src="@drawable/email"-->
+<!--            android:layout_alignParentRight="true" />-->
+
+    </RelativeLayout>
 
 
 
@@ -63,19 +72,40 @@
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:paddingBottom="0dp">
-
         <TextView
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:text="Mis ahorros y prestamos"
-            style="@style/viewParent.headerText"/>
+            android:text="Mis Ahorros y Prestamos"
+            style="@style/viewParent.prestamosText"/>
+
+        <RelativeLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="40dp">
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="01 April 2017 15:15"
+                android:layout_alignParentTop="true"
+                android:gravity="right"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:paddingTop="0dp"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
+        android:paddingRight="7dp"
+        android:paddingLeft="7dp"
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

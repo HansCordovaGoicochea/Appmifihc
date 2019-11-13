@@ -11,7 +11,7 @@
         android:id="@+id/action_favorites"
         android:enabled="true"
         android:icon="@drawable/support"
-        android:title="Contactanos"
+        android:title="Contáctanos"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_nearby"
