@@ -11,10 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +33,12 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     boolean doubleBackToExitPressedOnce = false;
     private BottomNavigationView bottomNavigationView;
     public FragmentManager fragmentManager;
+
+    public TextView txtUserName;
+    public TextView txtDocument;
+
+    SharedPreferences prefs;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,6 +76,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     };
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +99,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationView = findViewById(R.id.navigation);
@@ -96,6 +109,18 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         layoutParams.setBehavior(new BottomNavigationBehavior());
 
         bottomNavigationView.setSelectedItemId(R.id.navigationHome);
+
+
+        txtUserName = headerView.findViewById(R.id.txtUserName);
+        txtDocument = headerView.findViewById(R.id.txtDocument);
+
+//        $loginEnmascarado = substr($login, 0, 3) . str_repeat('*', strlen($login) - 3);
+//        String nombre_user = SessionPrefs.PREF_CUSTOMER_NAME.substring(0, 3);
+//        String nombre_user2 = str_repeat(SessionPrefs.PREF_CUSTOMER_NAME.length() - 3);
+
+
+        txtUserName.setText(""+SessionPrefs.get(getApplicationContext()).getPrefCustomerName());
+        txtDocument.setText(SessionPrefs.get(this).getPrefCustomerNumeroDoc());
 
         //handling floating action menu
 

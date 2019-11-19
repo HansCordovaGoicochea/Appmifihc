@@ -69,4 +69,36 @@ public class SessionPrefs {
         editor.putString(PREF_CUSTOMER_CELULAR, null);
         editor.apply();
     }
+
+
+    public String getPrefCustomerId() {
+//        return PREF_CUSTOMER_ID;
+        return mPrefs.getString(PREF_CUSTOMER_ID, null);
+    }
+
+    public String getPrefCustomerName() {
+        return mPrefs.getString(PREF_CUSTOMER_NAME, null);
+//        return PREF_CUSTOMER_NAME;
+    }
+
+    public String getPrefCustomerNumeroDoc() {
+//        return PREF_CUSTOMER_NUMERO_DOC;
+        return mPrefs.getString(PREF_CUSTOMER_NUMERO_DOC, null);
+    }
+
+    public String getPrefCustomerDireccion() {
+//        return PREF_CUSTOMER_DIRECCION;
+        return mPrefs.getString(PREF_CUSTOMER_DIRECCION, null);
+    }
+
+    public String getPrefCustomerEmail() {
+//        return PREF_CUSTOMER_EMAIL;
+        return mPrefs.getString(PREF_CUSTOMER_EMAIL, null);
+    }
+
+    public String getPrefCustomerCelular() {
+//        return PREF_CUSTOMER_CELULAR;
+        return mPrefs.getString(PREF_CUSTOMER_CELULAR, null);
+
+    }
 }
