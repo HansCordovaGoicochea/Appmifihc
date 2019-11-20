@@ -119,8 +119,9 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 //        String nombre_user2 = str_repeat(SessionPrefs.PREF_CUSTOMER_NAME.length() - 3);
 
 
+        String doc_user = SessionPrefs.get(this).getPrefCustomerNumeroDoc().substring(5);
         txtUserName.setText(""+SessionPrefs.get(getApplicationContext()).getPrefCustomerName());
-        txtDocument.setText(SessionPrefs.get(this).getPrefCustomerNumeroDoc());
+        txtDocument.setText("*****"+doc_user);
 
         //handling floating action menu
 

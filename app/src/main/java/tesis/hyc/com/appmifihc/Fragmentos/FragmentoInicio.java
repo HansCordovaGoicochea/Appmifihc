@@ -1,6 +1,7 @@
 package tesis.hyc.com.appmifihc.Fragmentos;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -35,7 +37,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import tesis.hyc.com.appmifihc.Clases.PromocionesBanner;
 import tesis.hyc.com.appmifihc.R;
@@ -86,6 +91,8 @@ public class FragmentoInicio extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
         peticionServicioOfertas();
 
     }
@@ -94,10 +101,21 @@ public class FragmentoInicio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Locale locale = new Locale("es", "ES");
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getContext().getApplicationContext().getResources().updateConfiguration(config, null);
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_inicio, container, false);
         carouselView = view.findViewById(R.id.carouselView);
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        TextView dateTxt = view.findViewById(R.id.dateTextView);
+        dateTxt.setText(currentDate);
 
 
         return view;
