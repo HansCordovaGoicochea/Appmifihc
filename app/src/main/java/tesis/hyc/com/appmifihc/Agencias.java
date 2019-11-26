@@ -4,6 +4,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -73,6 +75,12 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
 //        }
 //        mMap.setMyLocationEnabled(true);
 
+        int height = 50;
+        int width = 40;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.map_ico_small);
+        Bitmap b=bitmapdraw.getBitmap();
+        final Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
         Log.d("URLURLURL" , URL);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
@@ -91,7 +99,11 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(Double.parseDouble(lat_i) , Double.parseDouble(long_i)))
                                 .title(Double.valueOf(lat_i).toString() + "," + Double.valueOf(long_i).toString())
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_ico_small))
+                                .snippet("hello")
+//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+
+
                         );
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-7.15587420,-78.51863620), 6.0f));
