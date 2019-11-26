@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_recents"
+        android:id="@+id/action_ubicanos"
         android:enabled="true"
         android:icon="@drawable/maps"
         android:title="Agencias"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_favorites"
+        android:id="@+id/action_contactanos"
         android:enabled="true"
         android:icon="@drawable/support"
         android:title="Contáctanos"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_nearby"
+        android:id="@+id/action_fb"
         android:enabled="true"
         android:icon="@drawable/facebook"
         android:title="FB"

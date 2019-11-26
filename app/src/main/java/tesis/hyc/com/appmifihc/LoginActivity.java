@@ -106,14 +106,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_recents:
+                    case R.id.action_ubicanos:
                         item.setCheckable(true);
-                        Toast.makeText(LoginActivity.this, "Recents", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "Recents", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, Agencias.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
-                    case R.id.action_favorites:
+                    case R.id.action_contactanos:
                         Toast.makeText(LoginActivity.this, "Favorites", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.action_nearby:
+                    case R.id.action_fb:
                         Toast.makeText(LoginActivity.this, "Nearby", Toast.LENGTH_SHORT).show();
                         break;
                 }

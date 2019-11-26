@@ -20,4 +20,9 @@ public class VolleyPeticiones {
         return Constantes.BASE_URL+"images/ofertas/"+id_oferta+"?ws_key=" + Constantes.API_KEY;
     }
 
+
+    public static String getUrlAgencias(){
+        return Constantes.BASE_URL+"stores/?ws_key=" + Constantes.API_KEY + "&output_format=JSON&display=full";
+    }
+
 }
