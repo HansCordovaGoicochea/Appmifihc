@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tesis.hyc.com.appmifihc.Actividades.ActividadAgencias;
 import tesis.hyc.com.appmifihc.Clases.Customer;
 import tesis.hyc.com.appmifihc.Prefs.SessionPrefs;
 import tesis.hyc.com.appmifihc.SingletonVolley.VolleyPeticiones;
@@ -109,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                     case R.id.action_ubicanos:
                         item.setCheckable(true);
 //                        Toast.makeText(LoginActivity.this, "Recents", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, Agencias.class);
+                        Intent intent = new Intent(LoginActivity.this, ActividadAgencias.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
@@ -134,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
     public void dialogProgress(){
         pd = new Dialog(this, android.R.style.Theme_Black);
         View view = LayoutInflater.from(this).inflate(R.layout.remove_border, null);
@@ -285,8 +287,6 @@ public class LoginActivity extends AppCompatActivity {
         una nueva petición en la cola del servicio web.*/
         MySingleton.getInstance(LoginActivity.this).addToRequestQueue(request);
     }
-
-
 
     @Override
     public void onBackPressed() {

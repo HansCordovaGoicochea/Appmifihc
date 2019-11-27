@@ -24,7 +24,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".Actividades.ActividadAgencias"
+            android:label="Agencias"
+            android:theme="@style/AppThemeActionBar"
+            ></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,11 +39,9 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-        <activity
-            android:name=".Agencias"
-            android:label="@string/title_activity_agencias"></activity>
+            android:value="@string/google_maps_key" /> <!-- <activity -->
+        <!-- android:name=".Agencias" -->
+        <!-- android:label="@string/title_activity_agencias"></activity> -->
         <activity android:name=".ActividadPrincipal" />
         <activity android:name=".LoginActivity" />
         <activity

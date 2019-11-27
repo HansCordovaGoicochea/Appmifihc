@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import tesis.hyc.com.appmifihc.R;
 import tesis.hyc.com.appmifihc.SingletonVolley.VolleyPeticiones;
+import tesis.hyc.com.appmifihc.Utils.Funciones;
 
 public class Agencias extends FragmentActivity implements OnMapReadyCallback, LocationListener,GoogleMap.OnMarkerClickListener {
 
@@ -51,6 +52,8 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Funciones.dialogProgress(Agencias.this);
     }
 
 
@@ -75,11 +78,13 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
 //        }
 //        mMap.setMyLocationEnabled(true);
 
-        int height = 50;
-        int width = 40;
-        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.map_ico_small);
-        Bitmap b=bitmapdraw.getBitmap();
-        final Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+//        int height = 50;
+//        int width = 40;
+//        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.map_ico_small);
+//        Bitmap b=bitmapdraw.getBitmap();
+//        final Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+        Funciones.setProgressShow();
 
         Log.d("URLURLURL" , URL);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
@@ -95,18 +100,25 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
                         JSONObject jsonObject1=result.getJSONObject(i);
                         String lat_i = jsonObject1.getString("latitude");
                         String long_i = jsonObject1.getString("longitude");
+                        String name = jsonObject1.getString("name");
+                        String city = jsonObject1.getString("city");
+                        String address1 = jsonObject1.getString("address1");
 
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(Double.parseDouble(lat_i) , Double.parseDouble(long_i)))
-                                .title(Double.valueOf(lat_i).toString() + "," + Double.valueOf(long_i).toString())
-                                .snippet("hello")
+                                .title(name + " - " + city)
+//                                .title(Double.valueOf(lat_i).toString() + "," + Double.valueOf(long_i).toString())
+                                .snippet(address1)
 //                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
-                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+//                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_small))
 
 
                         );
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-7.15587420,-78.51863620), 6.0f));
+
+                        Funciones.setProgressHide();
                     }
 
                 }catch (NullPointerException e){
@@ -123,6 +135,7 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Toast.makeText(Agencias.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Funciones.setProgressHide();
             }
         });
 
@@ -132,6 +145,7 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
     }
+
 
     @Override
     public void onLocationChanged(Location location) {
