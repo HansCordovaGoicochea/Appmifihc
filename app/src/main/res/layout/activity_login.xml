@@ -186,6 +186,7 @@
         app:menu="@menu/bottom_nav_login"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/bottom_nav_color"
+        android:background="?selectableItemBackgroundBorderless"
         app:itemTextColor="@color/bottom_nav_color" />
 
 <!--    <ProgressBar-->

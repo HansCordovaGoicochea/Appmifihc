@@ -33,11 +33,11 @@ public class BottomNavigationBehavior extends CoordinatorLayout.Behavior<BottomN
 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View target, int dx, int dy, int[] consumed) {
-        if (dy < 0) {
-            showBottomNavigationView(child);
-        } else if (dy > 0) {
-            hideBottomNavigationView(child);
-        }
+//        if (dy < 0) {
+//            showBottomNavigationView(child);
+//        } else if (dy > 0) {
+//            hideBottomNavigationView(child);
+//        }
     }
 
     private void hideBottomNavigationView(BottomNavigationView view) {
