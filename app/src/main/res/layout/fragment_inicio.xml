@@ -86,8 +86,7 @@
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:paddingBottom="0dp">
-        <TextView
-            android:layout_alignParentTop="true"
+        <customfonts.MyTextView_Poppins_Medium
             android:layout_alignParentLeft="true"
             android:text="Mis Ahorros y Prestamos"
             style="@style/viewParent.prestamosText"/>
@@ -101,7 +100,7 @@
             android:paddingBottom="20dp"
             android:paddingTop="40dp">
 
-            <TextView
+            <customfonts.MyTextView_Poppins_Medium
                 android:id="@+id/dateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

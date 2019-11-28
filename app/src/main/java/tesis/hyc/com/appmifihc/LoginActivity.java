@@ -51,9 +51,14 @@ import tesis.hyc.com.appmifihc.Clases.Customer;
 import tesis.hyc.com.appmifihc.Prefs.SessionPrefs;
 import tesis.hyc.com.appmifihc.SingletonVolley.VolleyPeticiones;
 import tesis.hyc.com.appmifihc.SingletonVolley.MySingleton;
+import tesis.hyc.com.appmifihc.Utils.CheckInternetAsyncTask;
+import tesis.hyc.com.appmifihc.Utils.Funciones;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+
     boolean doubleBackToExitPressedOnce = false;
     private static final int REQUEST_CALL_PHONE = 1;
     private static final int REQUEST_READ_CONTACTS = 2;
@@ -101,25 +106,40 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.getMenu().getItem(0).setCheckable(false);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_fb);
+        bottomNavigationView.getMenu().getItem(1).setCheckable(false);
+        Funciones.Font.persian_iran_font(LoginActivity.this, bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_ubicanos:
-                        item.setCheckable(true);
-//                        Toast.makeText(LoginActivity.this, "Recents", Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(LoginActivity.this, ActividadAgencias.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        break;
-                    case R.id.action_contactanos:
-                        Toast.makeText(LoginActivity.this, "Favorites", Toast.LENGTH_SHORT).show();
+//                        finish();
                         break;
                     case R.id.action_fb:
-                        Toast.makeText(LoginActivity.this, "Nearby", Toast.LENGTH_SHORT).show();
+                        item.setCheckable(true);
+                        if (Funciones.isAppInstalled(LoginActivity.this)) {
+//                            Toast.makeText(getApplicationContext(), "facebook app already installed", Toast.LENGTH_SHORT).show();
+                            Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+                            String facebookUrl = Funciones.getFacebookPageURL(LoginActivity.this);
+                            facebookIntent.setData(Uri.parse(facebookUrl));
+                            startActivity(facebookIntent);
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Facebook App no esta instalada.", Toast.LENGTH_SHORT).show();
+                        }
+
+//                        Toast.makeText(LoginActivity.this, "Nearby", Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.action_contactanos:
+                        Toast.makeText(LoginActivity.this, "Contáctanos", Toast.LENGTH_SHORT).show();
+                        break;
+
                 }
                 return true;
             }
@@ -134,6 +154,13 @@ public class LoginActivity extends AppCompatActivity {
             cbRecordar.setChecked(recordar);
         }
 
+        new CheckInternetAsyncTask(LoginActivity.this).execute();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        bottomNavigationView.getMenu().getItem(0).setCheckable(false);
     }
 
     public void dialogProgress(){

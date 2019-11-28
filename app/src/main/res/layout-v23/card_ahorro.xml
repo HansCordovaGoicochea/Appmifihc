@@ -27,16 +27,20 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/salesImageView">
 
-            <TextView
+            <customfonts.MyTextView_Poppins_Medium
                 style="@style/reportContentText"
                 android:text="Ahorro movible"
                 android:textColor="@color/colorPrimary"/>
-            <TextView
+
+            <customfonts.MyTextView_Poppins_Medium
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="12321123"/>
-            <TextView
+                android:textSize="12.5sp"
+                android:textColor="#002C56"
+                android:text="12321123"
+                />
+
+            <customfonts.MyTextView_Poppins_Medium
                 style="@style/viewParent.headerText"
                 android:textSize="21sp"
                 android:text="S/ 1000.22"/>

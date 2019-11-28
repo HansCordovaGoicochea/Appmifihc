@@ -19,20 +19,20 @@
 <!--        android:paddingTop="@dimen/nav_header_vertical_spacing"-->
 <!--        app:srcCompat="@mipmap/ic_launcher_round" />-->
 
-    <TextView
+    <customfonts.MyTextView_Poppins_Bold
         android:id="@+id/txtUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="CORDOVA GOICOCHEA HANS NORBERT MICHAEL"
         android:maxLines="1"
-        android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:ellipsize="end"/>
 
-    <TextView
+    <customfonts.MyTextView_Poppins_SemiBold
         android:id="@+id/txtDocument"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="*****975" />
+        android:text="*****975"/>
 
 </LinearLayout>

@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/mftiny1" />
 
-    <TextView
+    <customfonts.MyTextView_Poppins_Medium
         android:id="@+id/txtSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,8 @@
         android:layout_centerHorizontal="true"
         android:text="0 %"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        />
 
 
 

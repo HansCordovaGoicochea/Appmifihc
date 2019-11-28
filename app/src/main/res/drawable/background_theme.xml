@@ -5,7 +5,7 @@
     <gradient
         android:angle="90"
         android:endColor="@color/colorPrimaryDark"
-        android:centerColor="#033568"
+        android:centerColor="#F0093D74"
         android:startColor="@color/white"
         android:type="linear" />
 <!--    <gradient-->
@@ -14,4 +14,5 @@
 <!--        android:centerColor="#f0bbdefb"-->
 <!--        android:startColor="@color/white"-->
 <!--        android:type="linear" />-->
+
 </shape>
