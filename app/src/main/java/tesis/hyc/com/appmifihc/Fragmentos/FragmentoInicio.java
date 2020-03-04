@@ -91,10 +91,7 @@ public class FragmentoInicio extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
-
         peticionServicioOfertas();
-
     }
 
     @Override

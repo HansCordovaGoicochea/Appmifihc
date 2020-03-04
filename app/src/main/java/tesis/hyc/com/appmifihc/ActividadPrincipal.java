@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import tesis.hyc.com.appmifihc.Fragmentos.FragmentoInicio;
+import tesis.hyc.com.appmifihc.Fragmentos.FragmentoPerfil;
 import tesis.hyc.com.appmifihc.Prefs.SessionPrefs;
 import tesis.hyc.com.appmifihc.Utils.CheckInternetAsyncTask;
 
@@ -49,22 +50,51 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigationMyProfile:
+                    FragmentoPerfil test1 = (FragmentoPerfil) getSupportFragmentManager().findFragmentByTag("FragmentoPerfil");
+                    if (test1 != null && test1.isVisible()) {
+                        //Si esta visible el fragmento no hacer nada
+
+                    }
+                    else {
+                        Bundle args = new Bundle();
+                        args.putString(FragmentoPerfil.ARG_SECTION_TITLE, "Perfil");
+                        fragment = FragmentoPerfil.newInstance("", "");
+                        fragment.setArguments(args);
+
+                        FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack so the user can navigate back
+                        fragmentTransaction2.replace(R.id.contenedor_principal, fragment, "FragmentoPerfil");
+                        fragmentTransaction2.addToBackStack(null);
+                        fragmentTransaction2.commit();
+                        setTitle("Perfil"); // Setear título actual
+//                Toast.makeText(getApplicationContext(), "Carrrioto", Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 case R.id.navigationHome:
-                    Bundle args = new Bundle();
-                    args.putString(FragmentoInicio.ARG_SECTION_TITLE, "Inicio");
-                    fragment = FragmentoInicio.newInstance("", "");
-                    fragment.setArguments(args);
+                    FragmentoInicio test = (FragmentoInicio) getSupportFragmentManager().findFragmentByTag("FragmentoInicio");
+                    if (test != null && test.isVisible()) {
+                        //Si esta visible el fragmento de inicio no hacer nada
 
-                    FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+                    }
+                    else {
+                        Bundle args = new Bundle();
+                        args.putString(FragmentoInicio.ARG_SECTION_TITLE, "Inicio");
+                        fragment = FragmentoInicio.newInstance("", "");
+                        fragment.setArguments(args);
 
-                    // Replace whatever is in the fragment_container view with this fragment,
-                    // and add the transaction to the back stack so the user can navigate back
-                    fragmentTransaction2.replace(R.id.contenedor_principal, fragment, "FragmentoInicio");
-                    fragmentTransaction2.addToBackStack(null);
-                    fragmentTransaction2.commit();
-                    setTitle("Inicio"); // Setear título actual
+                        FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack so the user can navigate back
+                        fragmentTransaction2.replace(R.id.contenedor_principal, fragment, "FragmentoInicio");
+                        fragmentTransaction2.addToBackStack(null);
+                        fragmentTransaction2.commit();
+                        setTitle("Inicio"); // Setear título actual
 //                Toast.makeText(getApplicationContext(), "Carrrioto", Toast.LENGTH_SHORT).show();
+                    }
+
                     return true;
                 case  R.id.navigationMenu:
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
