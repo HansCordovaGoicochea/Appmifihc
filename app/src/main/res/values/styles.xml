@@ -70,4 +70,6 @@
         <item name="android:layout_below">@id/dateTextView</item>
     </style>
 
+
+
 </resources>

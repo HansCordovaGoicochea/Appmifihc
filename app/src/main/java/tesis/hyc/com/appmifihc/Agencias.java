@@ -86,7 +86,7 @@ public class Agencias extends FragmentActivity implements OnMapReadyCallback, Lo
 
         Funciones.setProgressShow();
 
-        Log.d("URLURLURL" , URL);
+//        Log.d("URLURLURL" , URL);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override

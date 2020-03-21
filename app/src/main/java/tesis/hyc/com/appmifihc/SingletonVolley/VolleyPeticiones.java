@@ -16,6 +16,11 @@ public class VolleyPeticiones {
     }
 
 
+    public static String getServicios(Integer id_customer){
+        return Constantes.BASE_URL+"mifi_servicios/?ws_key=" + Constantes.API_KEY + "&output_format=JSON&display=full&filter[id_customer]="+id_customer;
+    }
+
+
     public static String getUrlImagePromocion(Integer id_oferta){
         return Constantes.BASE_URL+"images/ofertas/"+id_oferta+"?ws_key=" + Constantes.API_KEY;
     }
