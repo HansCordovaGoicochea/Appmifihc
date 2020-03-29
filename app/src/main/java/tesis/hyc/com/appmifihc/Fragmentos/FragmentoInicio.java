@@ -7,11 +7,14 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +46,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import tesis.hyc.com.appmifihc.Adaptadores.RecyclerAdapterServicios;
 import tesis.hyc.com.appmifihc.Clases.PromocionesBanner;
 import tesis.hyc.com.appmifihc.Clases.Servicios;
 import tesis.hyc.com.appmifihc.Prefs.SessionPrefs;
@@ -67,11 +71,13 @@ public class FragmentoInicio extends Fragment {
 
     ArrayList<String> promociones = new ArrayList<>();
 
-    private List<Servicios> ServiciosList = new ArrayList<>();
-
+    private ArrayList<Servicios> ServiciosList = new ArrayList<>();
 
     CarouselView carouselView;
     ProgressBar progressBar;
+
+    RecyclerView rvServicios;
+    RecyclerAdapterServicios recyclerAdapterServicios;
 
     public FragmentoInicio() {
         // Required empty public constructor
@@ -95,14 +101,17 @@ public class FragmentoInicio extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        Funciones.setProgressShow();
+        Funciones.dialogProgress(getContext());
+
         peticionServicioOfertas();
+        peticionServicios();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Funciones.setProgressShow();
         Locale locale = new Locale("es", "ES");
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -119,6 +128,11 @@ public class FragmentoInicio extends Fragment {
         TextView dateTxt = view.findViewById(R.id.dateTextView);
         dateTxt.setText(currentDate);
 
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvServicios = view.findViewById(R.id.rviewServicios);
+        rvServicios.setLayoutManager(llm);
 
         return view;
     }
@@ -196,8 +210,6 @@ public class FragmentoInicio extends Fragment {
 
                             }
 
-                            Funciones.setProgressHide();
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -234,7 +246,7 @@ public class FragmentoInicio extends Fragment {
     public void peticionServicios()
     {
 
-        final String uri = VolleyPeticiones.getServicios(SessionPrefs.get(getContext()).getPrefCustomerId());
+        final String uri = VolleyPeticiones.getServicios(Integer.valueOf(SessionPrefs.get(getContext()).getPrefCustomerId()));
         /*Se declara e inicializa un objeto de tipo JsonObjectRequest, que permite
         recuperar un JSONObject a partir de la URL que recibe. El constructor de la clase JsonObjectRequest
         recibe como argumentos de entrada el método para que el cliente realice operaciones sobre el servidor web, la uri
@@ -246,30 +258,35 @@ public class FragmentoInicio extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
 
-                            JSONArray jsonMainNode = response.getJSONArray("mifi_servicios");
-
+                            JSONArray jsonMainNode = response.getJSONArray("mifi_servicioss");
+//                            Log.e("asdas---------------->", jsonMainNode.toString());
                             /*Se construye un bucle for() para recorrer la respuesta parseada y
                             construir un nuevo objeto Tienda por cada registro de la base de datos MySQL.*/
                             for (int i = 0; i < jsonMainNode.length(); i++)
                             {
 
                                 JSONObject jsObjectTiendas = (JSONObject) jsonMainNode.get(i);
-                                int id_mifi_servicios = jsObjectTiendas.getInt("id");
-                                int id_customer = jsObjectTiendas.getInt("id_customer");
-                                String nombre_servicio = jsObjectTiendas.getString("nombre_servicio");
-                                Double monto_servicio = jsObjectTiendas.getDouble("monto_servicio");
-                                int plazo_servicio = jsObjectTiendas.getInt("plazo_servicio");
-                                String fecha_servicio = jsObjectTiendas.getString("fecha_servicio");
-                                int num_certificado_servicio = jsObjectTiendas.getInt("num_certificado_servicio");
-                                Double monto_restante_servicio = jsObjectTiendas.getDouble("monto_restante_servicio");
-                                Double monto_mensual_prest = jsObjectTiendas.getDouble("monto_mensual_prest");
-                                Double tasa_interes_servicio = jsObjectTiendas.getDouble("tasa_interes_servicio");
-                                int id_currecy = jsObjectTiendas.getInt("id_currecy");
-                                int estado_servicio = jsObjectTiendas.getInt("estado_servicio");
-                                int codigo_servicio = jsObjectTiendas.getInt("codigo_servicio");
+                                int id_mifi_servicios = jsObjectTiendas.optInt("id");
+                                int id_customer = jsObjectTiendas.optInt("id_customer");
+                                String nombre_servicio = jsObjectTiendas.optString("nombre_servicio");
+                                Double monto_servicio = jsObjectTiendas.optDouble("monto_servicio");
+                                int plazo_servicio = jsObjectTiendas.optInt("plazo_servicio");
+                                String fecha_servicio = jsObjectTiendas.optString("fecha_servicio");
+                                int num_certificado_servicio = jsObjectTiendas.optInt("num_certificado_servicio");
+                                Double monto_restante_servicio = jsObjectTiendas.optDouble("monto_restante_servicio");
+                                Double monto_mensual_prest = jsObjectTiendas.optDouble("monto_mensual_prest");
+                                Double tasa_interes_servicio = jsObjectTiendas.optDouble("tasa_interes_servicio");
+                                int id_currecy = jsObjectTiendas.optInt("id_currecy");
+                                int estado_servicio = jsObjectTiendas.optInt("estado_servicio");
+                                int codigo_servicio = jsObjectTiendas.optInt("codigo_servicio");
+
+                                ServiciosList.add(new Servicios(id_mifi_servicios, id_customer, nombre_servicio, monto_servicio, plazo_servicio, fecha_servicio,num_certificado_servicio, monto_restante_servicio,
+                                        monto_mensual_prest,tasa_interes_servicio, id_currecy, estado_servicio, codigo_servicio));
+
 
                             }
 
+                            setAdapter();
                             Funciones.setProgressHide();
 
                         } catch (JSONException e) {
@@ -281,7 +298,7 @@ public class FragmentoInicio extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 try
                 {
-                    Log.e("ERROR DE VOLLEY TIENDAS", "Error de petición de servicio: " + error.toString());
+                    Log.e("ERROR DE VOLLEY SERVIC.", "Error de petición de servicio: " + error.toString());
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -303,6 +320,12 @@ public class FragmentoInicio extends Fragment {
         una nueva petición en la cola del servicio web.*/
         MySingleton.getInstance(getContext()).addToRequestQueue(request);
 
+    }
+
+    private void setAdapter() {
+//        Log.e("AdapterServicio->>>>>", "setAdapter: " + ServiciosList.size());
+        recyclerAdapterServicios = new RecyclerAdapterServicios(getContext(), ServiciosList);
+        rvServicios.setAdapter(recyclerAdapterServicios);
     }
 
 

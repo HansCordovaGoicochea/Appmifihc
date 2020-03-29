@@ -15,7 +15,7 @@
         android:background="@drawable/style_border_cardview">
 
         <ImageView
-            android:id="@+id/salesImageView"
+            android:id="@+id/servicioImageView"
             android:layout_width="140dp"
             android:layout_height="80dp"
             android:src="@drawable/ahorro_movible"/>
@@ -26,22 +26,24 @@
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_marginLeft="18sp"
-            android:layout_toRightOf="@id/salesImageView">
+            android:layout_toRightOf="@id/servicioImageView">
 
-            <TextView
+            <customfonts.MyTextView_Poppins_Medium
+                android:id="@+id/txtServicio"
                 style="@style/reportContentText"
                 android:text="Ahorro movible"
                 android:textColor="@color/colorPrimary"/>
 
             <customfonts.MyTextView_Poppins_Medium
+                android:id="@+id/tvCodigo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12.5sp"
-                android:textColor="#002C56"
+                android:textColor="#6F002C56"
                 android:text="12321123"
                 />
 
-            <TextView
+            <customfonts.MyTextView_Poppins_Bold
+                android:id="@+id/tvMonto"
                 style="@style/viewParent.headerText"
                 android:textSize="19sp"
                 android:text="S/ 1000.22"/>
@@ -52,7 +54,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/sad"
+        android:id="@+id/redirectImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center"

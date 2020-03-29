@@ -80,19 +80,23 @@
         android:layout_height="match_parent">
         <!--remove the below layout with recycler view, use card poplar courses as model for design-->
 
-        <LinearLayout
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--            <include layout="@layout/card_ahorro"/>-->
+<!--            <include layout="@layout/card_plazo_fijo"/>-->
+<!--            <include layout="@layout/card_prestamo"/>-->
+<!--            <include layout="@layout/card_ahorro"/>-->
+<!--            <include layout="@layout/card_plazo_fijo"/>-->
+<!--            <include layout="@layout/card_servicios"/>-->
+
+<!--        </LinearLayout>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rviewServicios"
+            android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/card_ahorro"/>
-            <include layout="@layout/card_plazo_fijo"/>
-            <include layout="@layout/card_prestamo"/>
-            <include layout="@layout/card_ahorro"/>
-            <include layout="@layout/card_plazo_fijo"/>
-            <include layout="@layout/card_prestamo"/>
-
-        </LinearLayout>
+            android:layout_height="match_parent"/>
     </androidx.core.widget.NestedScrollView>
 
 

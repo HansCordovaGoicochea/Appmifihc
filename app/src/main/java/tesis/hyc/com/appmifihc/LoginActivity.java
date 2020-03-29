@@ -88,7 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         //Si se puede guardar el usuariox
         prefs = getSharedPreferences("PrefUserSave", Context.MODE_PRIVATE);
 
-        dialogProgress();
+//        dialogProgress();
+        Funciones.dialogProgress(LoginActivity.this);
 
         cbRecordar = findViewById(R.id.cbRecordar);
 //        dualcamera1.isChecked()/
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setProgressShow();
+                Funciones.setProgressShow();
                 obtenerCliente(username.getText().toString());
             }
         });
@@ -163,22 +164,6 @@ public class LoginActivity extends AppCompatActivity {
 //        bottomNavigationView.getMenu().getItem(0).setCheckable(false);
     }
 
-    public void dialogProgress(){
-        pd = new Dialog(this, android.R.style.Theme_Black);
-        View view = LayoutInflater.from(this).inflate(R.layout.remove_border, null);
-        pd.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        pd.getWindow().setBackgroundDrawableResource(R.color.transparent);
-        pd.setContentView(view);
-        pd.setCancelable(false);
-    }
-
-    public void setProgressShow(){
-        pd.show();
-    }
-    public void setProgressHide(){
-        pd.hide();
-    }
-
     private void login(JSONObject jsonChildNode) {
         String pass = String.valueOf(pass_user.getText());
 //        String hash = "$2y$10$cmhjBxhi6RwY14IvTxKHHOsiuUh6vjABRByN7P0ed9f.duD.k73QG".replaceFirst("2y", "2a");
@@ -191,8 +176,8 @@ public class LoginActivity extends AppCompatActivity {
         String pass_hash = passwd.replaceFirst("2y", "2a");
         boolean isSuccessful = BCrypt.checkpw(pass, pass_hash);
         if (isSuccessful){
-            Log.e("asdas", "Login correcto");
-            Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
+//            Log.e("asdas", "Login correcto");
+//            Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
 
             Integer id_customer = jsonChildNode.optInt("id");
             String num_document = jsonChildNode.optString("num_document");
@@ -228,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             Log.e("asdas", "Login incorrecto");
             Toast.makeText(LoginActivity.this, "Login incorrecto", Toast.LENGTH_SHORT).show();
-            setProgressHide();
+            Funciones.setProgressHide();
         }
 
 
@@ -260,7 +245,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onSignupFailed() {
         Toast.makeText(getApplicationContext(), "Llene los datos correctamente", Toast.LENGTH_LONG).show();
-        setProgressHide();
+        Funciones.setProgressHide();
     }
 
     //consultar al cliente
@@ -296,7 +281,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this,"El servidor ha tardado demasiado tiempo en responder",Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
-                setProgressHide();
+                Funciones.setProgressHide();
             }
         });
 

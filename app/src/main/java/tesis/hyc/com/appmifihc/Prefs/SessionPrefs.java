@@ -71,9 +71,9 @@ public class SessionPrefs {
     }
 
 
-    public Integer getPrefCustomerId() {
+    public String getPrefCustomerId() {
 //        return PREF_CUSTOMER_ID;
-        return mPrefs.getInt(PREF_CUSTOMER_ID, 0);
+        return mPrefs.getString(PREF_CUSTOMER_ID, null);
     }
 
     public String getPrefCustomerName() {
