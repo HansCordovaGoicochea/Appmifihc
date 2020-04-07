@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import tesis.hyc.com.appmifihc.Clases.Servicios;
+import tesis.hyc.com.appmifihc.Fragmentos.FragmentoAhorro;
 import tesis.hyc.com.appmifihc.Fragmentos.FragmentoPrestamo;
 import tesis.hyc.com.appmifihc.R;
 
@@ -132,7 +133,9 @@ public class RecyclerAdapterServicios extends RecyclerView.Adapter<RecyclerAdapt
                         .replace(R.id.contenedor_principal, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
             }
             else if(codigo_servicio.equals(2)){
-
+                fragment = new FragmentoAhorro();// here give your fragment.
+                fragmentManager.beginTransaction()
+                        .replace(R.id.contenedor_principal, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
             }
 
         }

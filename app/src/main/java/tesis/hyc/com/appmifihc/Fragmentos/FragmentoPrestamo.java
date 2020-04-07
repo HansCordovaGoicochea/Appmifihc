@@ -1,40 +1,44 @@
 package tesis.hyc.com.appmifihc.Fragmentos;
 
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
+
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.Utils;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import tesis.hyc.com.appmifihc.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentoPrestamo extends Fragment {
+public class FragmentoPrestamo extends Fragment implements OnChartValueSelectedListener {
 
 
     public FragmentoPrestamo() {
@@ -49,103 +53,140 @@ public class FragmentoPrestamo extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_prestamo, container, false);
 
         // in this example, a LineChart is initialized from xml
-        LineChart chart = (LineChart) view.findViewById(R.id.chart);
-        chart.setDrawBorders(false);
-        LineDataSet lineDataSet = new LineDataSet(getData(), "");
-        lineDataSet.setColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        lineDataSet.setValueTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        PieChart  chart = view.findViewById(R.id.chart);
+        chart.setUsePercentValues(true);
+        chart.getDescription().setEnabled(false);
+        chart.setExtraOffsets(5, 10, 5, 5);
 
-        Description description = new Description();
-        description.setText("");
-        chart.setDescription(description);
-        chart.setNoDataText("No hay datos");
+        chart.setDragDecelerationFrictionCoef(0.95f);
 
+        Typeface tfRegular = Typeface.createFromAsset(getContext().getAssets(), "fonts/Poppins-Regular.ttf");
+        Typeface tfLight = Typeface.createFromAsset(getContext().getAssets(), "fonts/Poppins-Light.ttf");
+        chart.setCenterTextTypeface(tfRegular);
+        chart.setCenterText(generateCenterSpannableText());
+
+        chart.setDrawHoleEnabled(true);
+        chart.setHoleColor(Color.WHITE);
+
+        chart.setTransparentCircleColor(Color.WHITE);
+        chart.setTransparentCircleAlpha(110);
+
+        chart.setHoleRadius(58f);
+        chart.setTransparentCircleRadius(61f);
+
+        chart.setDrawCenterText(true);
+
+        chart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        chart.setRotationEnabled(true);
+        chart.setHighlightPerTapEnabled(true);
+
+        // chart.setUnit(" €");
+        // chart.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        chart.setOnChartValueSelectedListener(this);
+
+        chart.animateY(1400, Easing.EaseInOutQuad);
+        // chart.spin(2000, 0, 360);
 
         Legend l = chart.getLegend();
-        l.setEnabled(false);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
 
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/Poppins-Regular.ttf");
-        //////
-//        lineDataSet.addColor(Color.GRAY); // Your Blue
-        lineDataSet.setCircleColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        lineDataSet.setLineWidth(3f); // Increase here for line width
-        lineDataSet.setCircleRadius(7f);
-        lineDataSet.setValueTypeface(font);
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setValueTextSize(13f);
-        lineDataSet.setDrawFilled(true);
-        lineDataSet.setFormLineWidth(10f);
-
-        lineDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSet.setFormSize(15.f);
-
-        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-
-        if (Utils.getSDKInt() >= 18) {
-            // fill drawable only supported on api level 18 and above
-            Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_orange);
-            lineDataSet.setFillDrawable(drawable);
-        } else {
-            lineDataSet.setFillColor(ContextCompat.getColor(getContext(), R.color.colorAccent)); // Change your colo
-        }
+        // entry label styling
+        chart.setEntryLabelColor(Color.WHITE);
+        chart.setEntryLabelTypeface(tfLight);
+        chart.setEntryLabelTextSize(12f);
 
 
+        PieDataSet dataSet = new PieDataSet(getData(), "");
+        dataSet.setDrawIcons(false);
 
-        /////
+        dataSet.setSliceSpace(3f);
+        dataSet.setIconsOffset(new MPPointF(0, 40));
+        dataSet.setSelectionShift(5f);
 
-        XAxis xAxis = chart.getXAxis();
-//        xAxis.setEnabled(false);
+        // add a lot of colors
 
-        xAxis.setTypeface(font);
-        xAxis.setTextSize(9f);
-        xAxis.setTextColor(Color.WHITE);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        final String[] months = new String[]{"22 Mar", "24 Mar", "25 Mar", "29 Mar", "24 Mar", "25 Mar", "29 Mar"};
-        ValueFormatter formatter = new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return months[(int) value];
-            }
-        };
+        ArrayList<Integer> colors = new ArrayList<>();
 
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
 
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(formatter);
+//        for (int c : ColorTemplate.JOYFUL_COLORS)
+//            colors.add(c);
+//
+//        for (int c : ColorTemplate.COLORFUL_COLORS)
+//            colors.add(c);
 
-        YAxis yAxisRight = chart.getAxisRight();
-        yAxisRight.setEnabled(false);
-        yAxisRight.setDrawLabels(false);
-        yAxisRight.setDrawGridLines(false);
-        yAxisRight.setDrawAxisLine(false);
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
 
-        YAxis yAxisLeft = chart.getAxisLeft();
-//        yAxisLeft.setGranularity(1f);
-        yAxisLeft.setEnabled(false);
-        yAxisLeft.setDrawLabels(false);
-        yAxisLeft.setDrawGridLines(false);
-        yAxisLeft.setDrawAxisLine(false);
+//        for (int c : ColorTemplate.PASTEL_COLORS)
+//            colors.add(c);
 
-        LineData data = new LineData(lineDataSet);
+        colors.add(ColorTemplate.getHoloBlue());
+
+//        dataSet.setColors(colors);
+        dataSet.setColors(ContextCompat.getColor(getActivity(),R.color.red900),
+                ContextCompat.getColor(getActivity(),R.color.green600));
+        //dataSet.setSelectionShift(0f);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter(chart));
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        data.setValueTypeface(tfLight);
         chart.setData(data);
-        chart.animateX(2500);
+
+        // undo all highlights
+        chart.highlightValues(null);
+
         chart.invalidate();
 
         return view;
     }
 
-    private ArrayList getData(){
-        ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0f, 1000f));
-        entries.add(new Entry(1f, 900f));
-        entries.add(new Entry(2f, 1500f));
-        entries.add(new Entry(3f, 1200f));
-        entries.add(new Entry(4f, 800f));
-        entries.add(new Entry(5f, 850f));
-        entries.add(new Entry(6f, 500f));
-        return entries;
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("7/12\nCUOTAS");
+//        s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
+//        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
+//        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
+//        s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 15, 0);
+//        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
+//        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
+        return s;
     }
 
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getY() + ", index: " + h.getX()
+                        + ", DataSet index: " + h.getDataSetIndex());
+    }
+
+    @Override
+    public void onNothingSelected() {
+        Log.i("PieChart", "nothing selected");
+    }
+
+
+    private ArrayList getData(){
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        entries.add(new PieEntry(3, "Deuda"));
+        entries.add(new PieEntry(7, "Pagó"));
+        return entries;
+    }
 
 }
